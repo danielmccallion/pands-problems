@@ -6,12 +6,13 @@ p = []
 
 # Loop through all of the numbers we're 
 # checking for primality
-for i in range (2,1000):
+for i in range (2,10000):
     # Assume that i is a prime
     is_prime = True
     # Look through all values j from 2 up
     # to but not including i
-    for j in range(2,i):
+    # for j in range(2,i):
+    for j in p:
         # See if j divides i
         if i % j == 0:
             # If it does, i isn't prime exit loop
