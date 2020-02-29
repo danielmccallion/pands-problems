@@ -1,6 +1,8 @@
 # Daniel Mc Callion
 # A function to square numbers.
 
+import math
+
 def power(x, y):
     ans = x
     y = y - 1
@@ -14,4 +16,16 @@ def f(x):
     ans = ans - (power(x, 3) // 10)
     return ans
 
-print(f(2))
+
+# Loop through all of the numbers we're 
+# checking for primality
+def is_prime_func(i):
+    # Look through all values j from 2 up
+    # to but not including i
+    for j in range(2, math.floor(math.sqrt(i))):
+        # See if j divides i
+        if i % j == 0:
+            # If it does, i isn't prime exit loop
+            # and indicate its not prime
+            return False
+    return True
