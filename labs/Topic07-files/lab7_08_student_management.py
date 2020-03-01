@@ -2,7 +2,9 @@
 # A program that allows a user to add and view students,
 # their modules and their grades.
 # Saves the student data to a json when selected
-# Loads the student data from a json from the menu
+# Auto loads the student data from a json at start with 
+# basic error printout if file doesnt exist
+# Lets user change filename to save to
 
 import json
 
@@ -18,8 +20,9 @@ def display_menu():
     print("\t(v) View students")
     print("\t(s) Save students")
     print("\t(l) Load students file")
+    print("\t(f) Filename change")
     print("\t(q) Quit")
-    choice = input("Type one letter (a/v/s/l/q): ").strip().lower()
+    choice = input("Type one letter (a/v/s/q): ").strip().lower()
 
     return choice
 
@@ -60,9 +63,13 @@ def do_load():
 
 # Reads a json file and returns it
 def read_dict(file_to_open):
-    # Throws an error if the file does not exist
-    with open(file_to_open) as f:
-        return json.load(f)
+    # Catchs an error if the file does not exist
+    # Returns an empty list for students
+    try:
+        with open(file_to_open) as f:
+            return json.load(f)
+    except IOError:
+        print(f"No file: {filename} exists yet")
 
 
 # Reads in a students modules and grades from a user
@@ -90,7 +97,20 @@ def do_add():
     students.append(current_student)
 
 
+# Changes global file name for saving/loading
+def change_file_name():
+    global filename
+    filename_end = ".json"
+
+    filename_start = input("\tEnter the new filename (excluding extension): ").strip()
+
+    filename = filename_start + filename_end
+
+    print(f"Filename changed to {filename}")
+
+
 # Main Program
+do_load()
 users_choice = display_menu()
 while users_choice != "q":
     if users_choice == "a":
@@ -101,6 +121,8 @@ while users_choice != "q":
         do_save()
     elif users_choice == "l":
         do_load()
+    elif users_choice == "f":
+        change_file_name()
     elif users_choice != "q":
-        print("\n\nPlease select either a, v, s, l or q\n\n")
+        print("\n\nPlease select either a, v, s, l, f or q\n\n")
     users_choice = display_menu()
