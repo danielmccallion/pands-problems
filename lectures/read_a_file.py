@@ -1,6 +1,5 @@
 # Daniel Mc Callion
 
-
 with open(".gitignore", "r") as f:
     for line in f:
         print(line)
